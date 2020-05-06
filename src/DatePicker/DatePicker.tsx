@@ -1,20 +1,27 @@
 import React from "react";
 import Weekday from "./Weekday/Weekday";
 import styles from "./DatePicker.module.scss";
-import { abbreviateWeekday, WEEKDAYS, MONTHS } from "./utils/index";
+import {
+  abbreviateWeekday,
+  WEEKDAYS,
+  MONTHS,
+  formatDate,
+  daysInMonth,
+} from "./utils/index";
 
 interface IProps {}
 
 const DatePicker = (props: IProps) => {
+  let date = new Date();
+  const [day, setDay] = React.useState(date.getDate());
   const [monthIndex, setMonthIndex] = React.useState<number>(0);
   const [year, setYear] = React.useState<number>(2020);
 
   let month = MONTHS[monthIndex];
+  let formattedDate = formatDate(new Date(year, monthIndex, day));
+  let daysInSelectedMonth = daysInMonth(monthIndex, year);
 
   React.useEffect(() => {
-    let date = new Date();
-    let day = date.getDate();
-
     let selectedDate = date;
     let selectedDay = date.getDate();
     let selectedMonth = date.getMonth();
@@ -42,9 +49,22 @@ const DatePicker = (props: IProps) => {
     }
   };
 
+  const renderDays = (numberOfDays: number) => {
+    let days = [];
+    for (let i = 1; i <= numberOfDays; i++) {
+      days.push(i);
+    }
+
+    return days.map((day: number) => (
+      <div key={day} className={styles.days}>
+        {day}
+      </div>
+    ));
+  };
+
   return (
     <div className={styles.container}>
-      <div className={styles.selectedDate}>SelectedDate</div>
+      <div className={styles.selectedDate}>{formattedDate}</div>
       <div className={styles.dates}>
         <div className={styles.arrow} onClick={onPreviousMonthHandler}>
           &lt;
@@ -64,6 +84,7 @@ const DatePicker = (props: IProps) => {
             key={index}
           />
         ))}
+        {renderDays(daysInSelectedMonth)}
       </div>
     </div>
   );
