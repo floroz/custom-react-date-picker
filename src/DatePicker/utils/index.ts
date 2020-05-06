@@ -53,3 +53,23 @@ export function formatDate(date: Date): string {
 export function getStartOfMonth(year: number, monthIndex: number) {
   return new Date(year, monthIndex).getDay();
 }
+
+export function getArrayOfDays(
+  numberOfDays: number,
+  firstDay: number
+): number[] {
+  let days = [];
+
+  /**
+   * If a day is marked with 0 it means it's an empty slot on the calendar
+   */
+  for (let i = 0; i < firstDay; i++) {
+    days.push(0);
+  }
+
+  for (let i = 1; i <= numberOfDays; i++) {
+    days.push(i);
+  }
+
+  return days;
+}
