@@ -1,0 +1,42 @@
+.container {
+  max-width: 70rem;
+  background-color: rgba(red, 0.3);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+}
+
+.selectedDate {
+  font-size: 3rem;
+}
+
+.grid {
+  display: grid;
+  width: 100%;
+  height: 20rem;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.dates {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.month {
+  font-size: 2.5rem;
+}
+
+.arrow {
+  font-size: 2.5rem;
+  cursor: pointer;
+}
