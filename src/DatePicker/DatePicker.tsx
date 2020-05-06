@@ -7,12 +7,19 @@ import {
   MONTHS,
   formatDate,
   daysInMonth,
+  getStartOfMonth,
 } from "./utils/index";
 
 interface IProps {}
 
 const DatePicker = (props: IProps) => {
   let date = new Date();
+
+  let initialDate = new Date();
+  let initialDay = initialDate.getDay();
+  let initialMonth = initialDate.getMonth();
+  let initialYear = initialDate.getFullYear();
+
   const [day, setDay] = React.useState(date.getDate());
   const [monthIndex, setMonthIndex] = React.useState<number>(0);
   const [year, setYear] = React.useState<number>(2020);
@@ -20,13 +27,9 @@ const DatePicker = (props: IProps) => {
   let month = MONTHS[monthIndex];
   let formattedDate = formatDate(new Date(year, monthIndex, day));
   let daysInSelectedMonth = daysInMonth(monthIndex, year);
+  let firstDayOfMonth = getStartOfMonth(year, monthIndex);
 
   React.useEffect(() => {
-    let selectedDate = date;
-    let selectedDay = date.getDate();
-    let selectedMonth = date.getMonth();
-    let selectedYear = date.getFullYear();
-
     setMonthIndex(date.getMonth());
     setYear(date.getFullYear());
   }, []);
@@ -49,15 +52,26 @@ const DatePicker = (props: IProps) => {
     }
   };
 
-  const renderDays = (numberOfDays: number) => {
+  const renderDays = (numberOfDays: number, firstDay: number) => {
     let days = [];
+
+    for (let i = 0; i < firstDay; i++) {
+      days.push(0);
+    }
+
     for (let i = 1; i <= numberOfDays; i++) {
       days.push(i);
     }
 
-    return days.map((day: number) => (
-      <div key={day} className={styles.days}>
-        {day}
+    return days.map((d: number) => (
+      <div
+        key={Math.random()}
+        className={`${styles.days} ${
+          d === day && initialMonth === monthIndex && styles.selectedDay
+        }`}
+        onClick={() => setDay(d)}
+      >
+        {d !== 0 && d}
       </div>
     ));
   };
@@ -84,7 +98,7 @@ const DatePicker = (props: IProps) => {
             key={index}
           />
         ))}
-        {renderDays(daysInSelectedMonth)}
+        {renderDays(daysInSelectedMonth, firstDayOfMonth)}
       </div>
     </div>
   );

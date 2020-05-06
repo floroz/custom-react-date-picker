@@ -4,7 +4,7 @@
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
   border: 1px solid rgba(0, 0, 0, 0.25);
   border-radius: 15px;
-  padding: 5rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,7 +19,6 @@
 .grid {
   display: grid;
   width: 100%;
-  height: 20rem;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: auto;
   grid-gap: 1rem;
@@ -44,6 +43,12 @@
 }
 
 .days {
-  font-size: 1.5rem;
+  font-size: 2rem;
   text-align: center;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.selectedDay {
+  background-color: rgba(green, 0.2);
 }

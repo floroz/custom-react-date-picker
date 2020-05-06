@@ -22,6 +22,7 @@ export const MONTHS: string[] = [
   "July",
   "August",
   "September",
+  "October",
   "November",
   "December",
 ];
@@ -34,9 +35,21 @@ export function daysInMonth(monthIndex: number, year: number): number {
 }
 
 export function formatDate(date: Date): string {
-  let day = date.getDate();
-  let month = date.getMonth();
+  let day: string | number = date.getDate();
+
+  if (day < 10) {
+    day = "0" + day;
+  }
+  let month: string | number = date.getMonth() + 1;
+
+  if (month < 10) {
+    month = "0" + month;
+  }
   let year = date.getFullYear();
 
   return `${day}/${month}/${year}`;
+}
+
+export function getStartOfMonth(year: number, monthIndex: number) {
+  return new Date(year, monthIndex).getDay();
 }
