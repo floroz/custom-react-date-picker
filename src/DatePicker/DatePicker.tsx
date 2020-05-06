@@ -45,7 +45,9 @@ const DatePicker = (props: IProps) => {
           (d: number) => (
             <div
               key={Math.random()}
-              className={`${styles.days} ${d === day && styles.selectedDay}`}
+              className={`${styles.days} ${d === day && styles.selectedDay} ${
+                d !== 0 && styles.border
+              }`}
               onClick={() => setDay(d)}
             >
               {d !== 0 && d}
